@@ -43,9 +43,11 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
-
+        $this->mapDashboardPostRoutes();
+        $this->mapDashboardUserRoutes();
+        $this->mapDashboardRolesRoutes();
+        $this->mapDashboardPermissionsRoutes();
         //
     }
 
@@ -60,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+            ->group(base_path('routes/web/web.php'));
     }
 
     /**
@@ -75,6 +77,40 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+            ->group(base_path('routes/api/api.php'));
+    }
+
+    protected function mapDashboardPostRoutes()
+    {
+        Route::prefix('dashboard')
+        ->namespace($this->namespace)
+        ->middleware('web')
+        ->group(base_path('routes/web/posts.php'));
+    }
+
+    protected function mapDashboardUserRoutes()
+    {
+        Route::prefix('dashboard')
+        ->namespace($this->namespace)
+        ->middleware('web')
+        ->group(base_path('routes/web/users.php'));
+    }
+
+
+    protected function mapDashboardRolesRoutes()
+    {
+        Route::prefix('dashboard')
+        ->namespace($this->namespace)
+        ->middleware('web')
+        ->group(base_path('routes/web/roles.php'));
+    }
+
+    
+    protected function mapDashboardPermissionsRoutes()
+    {
+        Route::prefix('dashboard')
+        ->namespace($this->namespace)
+        ->middleware('web')
+        ->group(base_path('routes/web/permissions.php'));
     }
 }
