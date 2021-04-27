@@ -1,4 +1,8 @@
-<x-admin-master>
+<x-admin.admin-master>
+
+    @section('title') Edit Post : {{ $post->title }} @endsection
+
+
     @section('content')
 
         <h1>Edit Post</h1>
@@ -46,4 +50,4 @@
         </form>
 
     @endsection
-</x-admin-master>
+</x-admin.admin-master>

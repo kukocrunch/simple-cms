@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
+  <title>Simple CMS | @yield('title')</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">SIMPLE CMS <sup>b</sup></div>
       </a>
 
       <!-- Divider -->
@@ -55,67 +55,16 @@
         Interface
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <x-admin-sidebar-posts-links></x-admin-sidebar-posts-links>
+      <!-- Nav Item - Posts Collapse Menu -->
+      <x-admin.sidebar.posts-links></x-admin.sidebar.posts-links>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item active" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
+      @if(auth()->user()->userHasRole('Admin') || auth()->user()->userHasRole('Manager'))
+      <!-- Nav Item - Users Collapse Menu -->
+      <x-admin.sidebar.users-links></x-admin.sidebar.users-links>
+      
+      <!-- Nav Item - Authorization Collapse Menu -->
+      <x-admin.sidebar.authorization-links></x-admin.sidebar.authorization-links>
+      @endif
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -155,7 +104,7 @@
           </form>
 
           <!-- Topbar Navbar -->
-          <x-admin-topbar-nav></x-admin-topbar-nav>
+          <x-admin.navbar.topbar-nav></x-admin.navbar.topbar-nav>
 
         </nav>
         <!-- End of Topbar -->
@@ -165,7 +114,7 @@
 
           <!-- Page Heading -->
           @yield('content')
-
+                    
         </div>
         <!-- /.container-fluid -->
 
@@ -206,7 +155,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >Logout</a>
+          <a class="btn btn-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >Logout</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
           </form>
