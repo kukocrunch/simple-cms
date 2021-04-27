@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use App\Post;
 
 class User extends Authenticatable
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'name', 'avatar', 'email', 'password',
     ];
 
     /**
@@ -39,8 +40,46 @@ class User extends Authenticatable
     ];
 
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function userHasRole($role_name)
+    {
+        foreach($this->roles as $role){
+            if(Str::lower($role_name) == Str::lower($role->name))
+                return true;
+        }
+
+        return false;
+        
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        
+        if(is_null($value) || empty($value)){
+            return "https://ui-avatars.com/api/?name=".$this->name; 
+        }
+        
+        return asset('storage/' . $value);
+    }
+
 }
