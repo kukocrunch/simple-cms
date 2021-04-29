@@ -101,7 +101,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('dashboard')
         ->namespace($this->namespace)
-        ->middleware('web')
+        ->middleware(['web','auth','role:admin'])
         ->group(base_path('routes/web/roles.php'));
     }
 
@@ -110,7 +110,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('dashboard')
         ->namespace($this->namespace)
-        ->middleware('web')
+        ->middleware(['web','auth','role:admin,manager'])
         ->group(base_path('routes/web/permissions.php'));
     }
 }
