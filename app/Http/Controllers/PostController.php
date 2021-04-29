@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Post;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class PostController extends Controller
@@ -20,7 +21,8 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('blog-post', ['post' => $post]); 
+        $comments = $post->comments()->orderBy('created_at', 'desc')->get();
+        return view('blog-post', ['post' => $post, 'comments' => $comments]); 
     }
 
     public function create(Post $post)

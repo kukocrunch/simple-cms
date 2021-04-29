@@ -23,5 +23,11 @@ Route::get('/post/{post}', 'PostController@show')->name('post');
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', 'AdminsController@index')->name('admin.index');
+
+    //post comment
+    Route::post('/post/{post}/comment', 'CommentController@store')->name('post.comment.store');
+
+    //post reply
+    Route::post('/comment/reply', 'CommentController@storeReply')->name('post.comment.reply');
 });
 
