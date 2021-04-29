@@ -42,7 +42,7 @@
           </li>
           @else
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="{{ route('admin.index') }}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/register">Register</a>
